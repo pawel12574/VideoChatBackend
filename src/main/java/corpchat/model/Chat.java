@@ -1,4 +1,4 @@
-package model;
+package corpchat.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NotFound;

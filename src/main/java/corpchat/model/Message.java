@@ -1,4 +1,4 @@
-package model;
+package corpchat.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -46,4 +46,5 @@ public class Message extends AbstractEntity {
     public void setAuthor(User author) {
         this.author = author;
     }
+
 }

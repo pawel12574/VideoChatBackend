@@ -1,4 +1,4 @@
-package model;
+package corpchat.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
