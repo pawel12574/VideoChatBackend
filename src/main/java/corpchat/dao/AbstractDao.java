@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AbstractDao<T extends AbstractEntity> {
 
-  T findById(int id);
+  T findById(Long id);
 
   List<T> findAll();
 }
