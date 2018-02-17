@@ -18,12 +18,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void registerUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userRepositoryo.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
 
     }
     public void updateUser(User user) {

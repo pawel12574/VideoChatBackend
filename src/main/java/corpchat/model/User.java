@@ -20,7 +20,7 @@ public class User extends AbstractEntity{
     @OneToMany
     @NotFound(action = NotFoundAction.IGNORE)
     @JsonIgnore
-    private Set<Chat> chats;
+    private Set<Chat> chat;
 
     @ManyToMany
     @NotFound(action = NotFoundAction.IGNORE)
@@ -48,12 +48,12 @@ public class User extends AbstractEntity{
         this.password = password;
     }
 
-    public Set<Chat> getChats() {
-        return chats;
+    public Set<Chat> getChat() {
+        return chat;
     }
 
-    public void setChats(Set<Chat> chats) {
-        this.chats = chats;
+    public void setChat(Set<Chat> chat) {
+        this.chat = chat;
     }
 
     public Set<User> getFriend() {

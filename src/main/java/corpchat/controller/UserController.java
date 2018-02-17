@@ -23,9 +23,8 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/register", method = POST)
-    public User registerUser(@RequestBody User user){
-
-        return userRepository.save(user);
+    public void registerUser(@RequestBody User user){
+        userService.registerUser(user);
     }
 
     @RequestMapping(value = "/find/{email:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +39,12 @@ public class UserController {
          User loggedIn = userService.getLoggedUser();
          loggedIn.getFriend().add(friend);
          userRepository.save(loggedIn);
+    }
+
+    @RequestMapping(value = "/getFriend/", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    User getFriends(){
+        return userRepository.userWithFriends(userService.getLoggedUser().getEmail());
     }
 
 
