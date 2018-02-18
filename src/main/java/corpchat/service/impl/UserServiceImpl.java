@@ -3,14 +3,17 @@ package corpchat.service.impl;
 
 import corpchat.dao.UserRepository;
 import corpchat.model.User;
+import corpchat.service.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 import corpchat.service.UserService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @Service
 @Transactional
@@ -18,11 +21,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+    PasswordEncoder encoder = PasswordEncoder.getInstance();
 
-    public void registerUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    String saltKey = "PveFT7isD==";
+
+    public void registerUser(User user) throws IOException, NoSuchAlgorithmException {
+        user.setPassword(encoder.encode(user.getPassword(), saltKey));
         userRepository.save(user);
 
     }

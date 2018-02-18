@@ -15,6 +15,7 @@ import java.util.Set;
 public class User extends AbstractEntity{
 
     private String email;
+    private String name;
     private String password;
 
     @OneToMany
@@ -62,6 +63,14 @@ public class User extends AbstractEntity{
 
     public void setFriend(Set<User> friend) {
         this.friend = friend;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
