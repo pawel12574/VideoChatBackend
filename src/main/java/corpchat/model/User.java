@@ -79,4 +79,6 @@ public class User extends AbstractEntity{
                 "email='" + email + '\'' +
                 '}';
     }
+
+
 }

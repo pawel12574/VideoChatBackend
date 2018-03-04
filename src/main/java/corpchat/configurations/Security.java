@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,10 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebSecurity
 public class Security extends WebSecurityConfigurerAdapter {
 
-//    @Bean
-//    public CustomAuthenticatiocnProvider getAuthenticationProvider() {
-//        return new CustomAuthenticationProvider();
-//    }
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -40,9 +38,11 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.httpBasic()
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/*").permitAll()
+                .antMatchers("/login","/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -53,6 +53,11 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
         http.headers().frameOptions().disable();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
     @Override
@@ -70,26 +75,9 @@ public class Security extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-//    @Bean
-//    public PasswordEncoder encoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Bean
     public PasswordEncoder encoder() {
-
-
-
-        PasswordEncoder encoder = new BCryptPasswordEncoder(6);
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(getAuthenticationProvider());
-////                .inMemoryAuthentication()
-////                .withUser("user").password("password").roles("ADMIN");
-//    }
-
-
 
 }
