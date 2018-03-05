@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import corpchat.service.UserService;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+
 
 @Service
 @Transactional
@@ -24,9 +23,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-//    PasswordEncoder encoder = PasswordEncoder.getInstance();
-//
-//    String saltKey = "PveFT7isD==";
+
 
     public void registerUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));

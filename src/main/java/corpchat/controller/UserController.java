@@ -9,16 +9,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.*;
 
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
-import java.util.List;
+
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -53,9 +51,8 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity<String> registerUser(@RequestBody User user) throws IOException, NoSuchAlgorithmException {
-        System.out.println(user);
         User fromDb = userRepository.findByEmail(user.getEmail());
-        if (user != null) {
+        if (fromDb == null) {
             userService.registerUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         }else
