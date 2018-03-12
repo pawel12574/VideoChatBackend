@@ -26,8 +26,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
-    @Autowired
     UserService userService;
     @Autowired
     PasswordEncoder encoder;
@@ -51,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        User fromDb = userRepository.findByEmail(user.getEmail());
+        User fromDb = userService.findByEmail(user.getEmail());
         if (fromDb == null) {
             userService.registerUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -67,7 +65,7 @@ public class UserController {
     @RequestMapping(value = "/searchFriend/{friend:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody User searchFriendByEmail(@PathVariable("friend") String friend){
         User logged = userService.getLoggedUser();
-        User user = userRepository.findByEmail(friend);
+        User user = userService.findByEmail(friend);
         if(user == null || logged.getFriend().contains(user)) return null;
 
         if(user.getEmail().equals(logged)) {
@@ -81,10 +79,10 @@ public class UserController {
     @RequestMapping(value = "/addFriend/{friendUsername:.+}", method = GET)
     public ResponseEntity<String> addFriend(@PathVariable("friendUsername") String friendUsername){
          User logged = userService.getLoggedUser();
-         User friend = userRepository.userWithFriends(friendUsername);
+         User friend = userService.getUserWithFriends();
          logged.getFriend().add(friend);
          friend.getFriend().add(logged);
-         userRepository.save(logged);
+         userService.save(logged);
          return new ResponseEntity<>(HttpStatus.OK);
     }
 
