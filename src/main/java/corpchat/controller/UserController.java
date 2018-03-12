@@ -39,18 +39,18 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value="/log", method = POST)
-    public @ResponseBody boolean login(@RequestBody User user){
-        User userFromDb = userRepository.findByEmail(user.getEmail());
-        user.setPassword(encoder.encode(user.getPassword()));
-        System.out.println(userFromDb.getPassword()+" : " +user.getPassword());
-
-        return userFromDb.getPassword().equals(user.getPassword());
-
-    }
+//    @RequestMapping(value="/log", method = POST)
+//    public @ResponseBody boolean login(@RequestBody User user){
+//        User userFromDb = userRepository.findByEmail(user.getEmail());
+//        user.setPassword(encoder.encode(user.getPassword()));
+//        System.out.println(userFromDb.getPassword()+" : " +user.getPassword());
+//
+//        return userFromDb.getPassword().equals(user.getPassword());
+//
+//    }
 
     @RequestMapping(value = "/register", method = POST)
-    public ResponseEntity<String> registerUser(@RequestBody User user) throws IOException, NoSuchAlgorithmException {
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
         User fromDb = userRepository.findByEmail(user.getEmail());
         if (fromDb == null) {
             userService.registerUser(user);
@@ -61,15 +61,14 @@ public class UserController {
 
     @RequestMapping(value = "/find/{email:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody User getUserByEmail(@PathVariable("email") String email){
-        return userRepository.findByEmail(email);
+        return userService.findByEmail(email);
     }
 
-    @RequestMapping(value = "/find/{logged:.+}/{friend:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User getUserByEmailWithoutLogged(@PathVariable("logged") String logged,
-                                                          @PathVariable("friend") String friend){
-        User logg = userRepository.findByEmail(logged);
+    @RequestMapping(value = "/searchFriend/{friend:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody User searchFriendByEmail(@PathVariable("friend") String friend){
+        User logged = userService.getLoggedUser();
         User user = userRepository.findByEmail(friend);
-        if(user == null || logg.getFriend().contains(user)) return null;
+        if(user == null || logged.getFriend().contains(user)) return null;
 
         if(user.getEmail().equals(logged)) {
             return null;
@@ -79,10 +78,9 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/addFriend/{loggedUsername:.+}/{friendUsername:.+}", method = GET)
-    public ResponseEntity<String> addFriend(@PathVariable("loggedUsername") String loggedUsername,
-                          @PathVariable("friendUsername") String friendUsername){
-         User logged = userRepository.userWithFriends(loggedUsername);
+    @RequestMapping(value = "/addFriend/{friendUsername:.+}", method = GET)
+    public ResponseEntity<String> addFriend(@PathVariable("friendUsername") String friendUsername){
+         User logged = userService.getLoggedUser();
          User friend = userRepository.userWithFriends(friendUsername);
          logged.getFriend().add(friend);
          friend.getFriend().add(logged);
@@ -90,10 +88,10 @@ public class UserController {
          return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getFriend/{loggedUser:.+}", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Set<User> getFriends(@PathVariable("loggedUser") String username){
+    @RequestMapping(value = "/getFriends", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Set<User> getFriends(){
 
-        return userRepository.userWithFriends(username).getFriend();
+        return userService.getUserWithFriends().getFriend();
     }
 
     @RequestMapping(value = "/getloggedUser", method = GET, produces = MediaType.APPLICATION_JSON_VALUE)

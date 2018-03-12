@@ -7,9 +7,12 @@ import java.security.NoSuchAlgorithmException;
 
 public interface UserService {
 
-    void registerUser(User user) throws IOException, NoSuchAlgorithmException;
+    User findByEmail(String email);
+    User getUserWithFriends();
+    void save(User user);
+    void registerUser(User user);
     void updateUser(User user);
-
     User getLoggedUser();
+    String getLoggedUsername();
 
 }
