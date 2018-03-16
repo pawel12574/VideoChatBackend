@@ -9,6 +9,7 @@ public interface UserService {
 
     User findByEmail(String email);
     User getUserWithFriends();
+    User getUserWithFriendsByEmail(String email);
     void save(User user);
     void registerUser(User user);
     void updateUser(User user);

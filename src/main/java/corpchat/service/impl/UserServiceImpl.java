@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.userWithFriends(this.getLoggedUsername());
     }
 
+    public User getUserWithFriendsByEmail(String email){
+        return userRepository.userWithFriends(email);
+    }
+
     public void registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);

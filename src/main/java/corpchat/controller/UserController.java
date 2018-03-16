@@ -78,8 +78,8 @@ public class UserController {
 
     @RequestMapping(value = "/addFriend/{friendUsername:.+}", method = GET)
     public ResponseEntity<String> addFriend(@PathVariable("friendUsername") String friendUsername){
-         User logged = userService.getLoggedUser();
-         User friend = userService.getUserWithFriends();
+         User logged = userService.getUserWithFriends();
+         User friend = userService.getUserWithFriendsByEmail(friendUsername);
          logged.getFriend().add(friend);
          friend.getFriend().add(logged);
          userService.save(logged);
