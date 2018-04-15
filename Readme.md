@@ -21,8 +21,11 @@ Clone first(contains builded second Angualar project) and last project PeerJS.<b
 Install xampp, run mysql server and create empty database 'videochat'. Default there is no password, so you must set your password to mysql or change application.properties file in this part of project.<br>
 Run PeerJS server(see readme of PeerJS project)<br>
 Run Spring Application.
+To properly run CorpChat you must run all server over HTTPS, because camera can work only on https or localhost.
 
-## Screen
+
+## Screen verison that run on localhost
+
 
 
 ## Class diagram of model
