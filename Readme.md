@@ -3,20 +3,26 @@
 This is the simple app, that allow to videocall to another user.
 
 ## Used technology
-- SpringBoot
-- Hibernate
+- SpringBoot(REST API and Authentication via REST)
+- Hibernate(ORM)
 - PeerJS(Signaling server)
-- Angular5
+- Angular5(Web Client)
 
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 CorpChat consist from three project:
-- https://github.com/pawel12574/VideoCorpChatServer   Server side(Spring)
+- https://github.com/pawel12574/VideoCorpChatServer   Server side(Spring). 
 - https://github.com/pawel12574/VideoCorpChatClient   Clinet(Angular)
 - https://github.com/pawel12574/PeerJS                Signaling server(Node)
 
+Clone first(contains builded second Angualar project) and last project PeerJS.<br>
+Install xampp, run mysql server and create empty database 'videochat'. Default there is no password, so you must set your password to mysql or change application.properties file in this part of project.<br>
+Run PeerJS server(see readme of PeerJS project)<br>
+Run Spring Application.
+
+## Screen
 
 
 ## Class diagram of model
