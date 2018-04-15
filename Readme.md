@@ -5,7 +5,7 @@ This is the simple app, that allow to videocall to another user.
 ## Used technology
 - SpringBoot
 - Hibernate
-- PeerjJS(Signaling server)
+- PeerJS(Signaling server)
 - Angular5
 
 
