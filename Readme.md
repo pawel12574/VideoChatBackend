@@ -13,9 +13,9 @@ This is the simple app, that allow to videocall to another user.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 CorpChat consist from three project:
-https://github.com/pawel12574/VideoCorpChatServer   Server side(Spring)
-https://github.com/pawel12574/VideoCorpChatClient   Clinet(Angular)
-https://github.com/pawel12574/PeerJS                Signaling server(Node)
+- https://github.com/pawel12574/VideoCorpChatServer   Server side(Spring)
+- https://github.com/pawel12574/VideoCorpChatClient   Clinet(Angular)
+- https://github.com/pawel12574/PeerJS                Signaling server(Node)
 
 
 
