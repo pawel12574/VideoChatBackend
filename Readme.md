@@ -34,4 +34,4 @@ To properly run CorpChat you must run all servers over HTTPS, because camera can
 
 ## Architecture
 <br>
-<a href="https://ibb.co/eJL31n"><img src="https://preview.ibb.co/fTni1n/ChatREST.png" alt="ChatREST" border="0"></a>
+<a href="https://ibb.co/gKhVhS"><img src="https://preview.ibb.co/na4zbn/ChatREST.png" alt="ChatREST" border="0"></a>
